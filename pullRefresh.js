@@ -51,12 +51,13 @@ module.exports = function (options, callback) {
 
                 if (offsetY > cfg.offsetY && scrollTop < cfg.offsetScrollTop && Math.abs(offsetX) < Math.abs(offsetY)) {
                     cfg.pullRefresh(self);
-                } else {
+                } else if(scrollTop < cfg.offsetScrollTop) {
                     cfg.pullCancel(self);
                 }
             })
             .on('touchcancel', function () {
-                cfg.pullCancel(self);
+                if(scrollTop < cfg.offsetScrollTop)
+                    cfg.pullCancel(self);
             });
 
     });
